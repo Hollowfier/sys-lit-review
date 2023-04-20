@@ -1,7 +1,15 @@
-# Artificial Intelligence; Machine Learning; Deep Learning; Neural Network; Computer Vision; Image Processing; Knowledge Representation; Data Mining; Natural Language Processing; NLP;  Computational Intelligence; Advanced Data Analytics; Data Science; Big Data
-# Product Creation; Product Planning; Product Development; Product Engineering; Service Development; Service Engineering; Production System Development; Production System Engineering; Product Lifecycle Management
-# Review; Survey; Literature Study
-# Case Study; Use Case; Application
+'''
+Classes 
+
+1: Artificial Intelligence; Machine Learning; Deep Learning; Neural Network; Computer Vision; Image Processing; Knowledge Representation; Data Mining; Natural Language Processing; NLP;  Computational Intelligence; Advanced Data Analytics; Data Science; Big Data
+
+2: Product Creation; Product Planning; Product Development; Product Engineering; Service Development; Service Engineering; Production System Development; Production System Engineering; Product Lifecycle Management
+
+3: Review; Survey; Literature Study
+
+4: Case Study; Use Case; Application
+
+'''
 
 import itertools
 
