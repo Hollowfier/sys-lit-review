@@ -97,7 +97,7 @@ class IeeeSearch(Api):
         if records is not None:
             parameters.append('max_records={}'.format(records))
         if start_record is not None:
-            parameters.append('start_record={}'.format(start))
+            parameters.append('start_record={}'.format(start_record))
         
         if start_year is not None:
             parameters.append('start_year={}'.format(start_year))
@@ -121,7 +121,10 @@ class IeeeSearch(Api):
     @staticmethod
     def get_root(response):
         root = response.json()
-        return root
+        if root['total_records']:
+            return root
+        else: 
+            return None
 
 # main-api-key = 'bjxzyx3wk4yce8zd6wd9e2yf'
 # backup-api-key = 'hjdyck49fz46r8yfpju8h2kc'

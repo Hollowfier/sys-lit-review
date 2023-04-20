@@ -6,7 +6,7 @@ class MongoDB(object):
     
     @staticmethod
     def initialize():
-        client = pymongo.MongoClient('mongodb://localhost:27017/')
+        client = pymongo.MongoClient(MongoDB.uri)
         MongoDB.db = client['aislr_database']
         
     @staticmethod
