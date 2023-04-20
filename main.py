@@ -97,12 +97,23 @@ for search_strings in queries:
         else:
             continue_search = False
 
+# remove duplicate papers
+final_search_papers = []
+for paper in raw_articles:
+    duplicate_elements = list((filter(lambda d: d['title'] == paper['title'] 
+                        and d['doi'] == paper['doi'] 
+                        and d['pdf_url'] == paper['pdf_url'], final_search_papers)))
+    if not len(duplicate_elements):
+        final_search_papers.append(paper)
+
 s_end = time()
 
 
 review_data['query_paper_map'] = query_paper_map
 review_data['time_search_papers'] = s_end - s_start
-review_data['search_papers'] = raw_articles
+review_data['total_paper_count'] = len(raw_articles)
+review_data['unique_paper_count'] = len(final_search_papers)
+review_data['search_papers'] = final_search_papers
 
 file_path = os.getcwd() + '\\output\\review_process.json'
 with open(file_path, 'w') as f:
