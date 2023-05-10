@@ -34,7 +34,7 @@ class IeeeSearch(Api):
         """A function which takes a dictionary with structure of the IEEE
         results and transform it to a standardized format.
         """
-        raw_article['url'] = raw_article.get('html_url', None)
+        raw_article['url'] = raw_article.get('pdf_url', None)
         try:
             raw_article['author'] = [author['full_name'] for author in raw_article['authors']['authors']]
         except KeyError:
@@ -126,5 +126,16 @@ class IeeeSearch(Api):
         else: 
             return None
 
+
+    def to_standardized_dictionary(self, raw_article):
+        standard_dict_object = {}
+        standard_dict_object['doi'] = raw_article.get('doi', None)
+        standard_dict_object['title'] = raw_article.get('title', None)
+        standard_dict_object['abstract'] = raw_article.get('abstract', None)
+        standard_dict_object['url'] = raw_article.get('pdf_url', None)
+        standard_dict_object['open_access'] = raw_article['access_type'] == 'OPEN_ACCESS'
+        standard_dict_object['source'] = 'ieee'
+        return standard_dict_object
+        
 # main-api-key = 'bjxzyx3wk4yce8zd6wd9e2yf'
 # backup-api-key = 'hjdyck49fz46r8yfpju8h2kc'

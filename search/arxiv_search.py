@@ -111,3 +111,13 @@ class ArxivSearch(Api):
     def get_root(response):
         root = ElementTree.fromstring(response.text)
         return root
+    
+    def to_standardized_dictionary(self, raw_article):
+        standard_dict_object = {}
+        standard_dict_object['doi'] = raw_article.get('id', None)
+        standard_dict_object['title'] = raw_article.get('title', None)
+        standard_dict_object['abstract'] = raw_article.get('summary', None)
+        standard_dict_object['url'] = raw_article.get('link', None)
+        standard_dict_object['open_access'] = True #raw_article['access_type'] == 'OPEN_ACCESS'
+        standard_dict_object['source'] = 'arxiv'
+        return standard_dict_object
