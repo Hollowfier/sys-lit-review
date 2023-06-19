@@ -19,8 +19,7 @@ class Queries:
         self.map_of_keywords = keywords
         self.final_list_of_queries = []
 
-    def form_simple_queries(self):
-        list_of_queries = list(itertools.product(*self.map_of_keywords))
+    def form_simple_queries(self, list_of_queries):
         for query_tuple in list_of_queries:
             #print(query_tuple)
             query_tuple = ["\"" + x + "\"" for x in query_tuple]
@@ -30,6 +29,42 @@ class Queries:
             self.final_list_of_queries.append(query)
     
         return self.final_list_of_queries
+    
+    def form_springer_query(self, list_of_queries):
+        #list_of_queries = list(itertools.product(*self.map_of_keywords))
+        for query_tuple in list_of_queries:
+            query_tuple = ["keyword:\"" + x + "\"" for x in query_tuple]
+            self.final_list_of_queries.append(query_tuple)
+            
+        return self.final_list_of_queries
+    
+    def form_scopus_query(self, list_of_queries, key ="KEY"):
+        for query_tuple in list_of_queries:
+            query_tuple = [key+"(\"" + x + "\")" for x in query_tuple]
+            query = '+AND+'.join(query_tuple)
+            query.replace(' ', '+')
+            query.replace('(', '%28')
+            query.replace(')', '%29')
+            self.final_list_of_queries.append(query_tuple)
+
+        return self.final_list_of_queries
+
+    def form_queries_for_all_sources(self, list_of_queries):
+        self.form_simple_queries(list_of_queries)
+        self.form_springer_query(list_of_queries)
+        self.form_scopus_query(list_of_queries)
+
+        return self.final_list_of_queries
+
+    def form_queries_for(self, key):
+        list_of_queries = list(itertools.product(*self.map_of_keywords))
+        if key == 'springer':
+            return self.form_springer_query(list_of_queries)
+        elif key == 'scopus':
+            return self.form_scopus_query(list_of_queries)
+        elif key == 'all':
+            return self.form_queries_for_all_sources(list_of_queries)
+        return self.form_simple_queries(list_of_queries)
 
 
 #print(queries[0])

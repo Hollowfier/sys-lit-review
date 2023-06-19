@@ -1,22 +1,14 @@
 import json
 import os
-
+import pandas as pd
 from query.form_queries import Queries
 from search.ieee_search import IeeeSearch
+from search.arxiv_search import ArxivSearch
+from search.scopus_search import ScopusSearch
+from search.springer_search import SpringerSearch
 from time import time
 
-''' 
-TODO:
-Define data models for storing
 
-1. Review Info - date & time of review, keywords and start-end year
-2. Search Queries - Mapping of Review and Search Queries
-3. Papers - Title, Authors, Abstract, Paper Url, Date Published, Open Access
-As we move ahead, we would also need isSelected, isDownloaded, DownloadUri in Papers
-4. Query - Paper Mapping
-5. Data Extraction & Paper Mapping
-
-'''
 review_data = {}
 
 # Input Year
@@ -48,7 +40,7 @@ print('\nThank you!\nYou have entered a total of {} keywords across {} classes\n
 review_data['keywords'] = keywords_map
 
 qstart = time()
-queries = Queries(keywords_map).form_simple_queries()
+queries = Queries(keywords_map).form_queries_for('ieee')
 qend = time()
 
 print('Created {} queries from input keywords'.format(len(queries)))
@@ -60,7 +52,6 @@ print("Searching in IEEE database - ")
 
 searcher = IeeeSearch()
 
-#TODO: Figure out how to get all documents from a search string 
 totals = 200
 records_size = 200
 raw_articles = []
@@ -107,7 +98,6 @@ for paper in raw_articles:
         final_search_papers.append(paper)
 
 s_end = time()
-
 
 review_data['query_paper_map'] = query_paper_map
 review_data['time_search_papers'] = s_end - s_start
